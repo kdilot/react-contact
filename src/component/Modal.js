@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import onClickOutside from 'react-onclickoutside';
-import { media } from '../lib/style-utils';
+import { media, transitions } from '../lib/style-utils';
 import PropTypes from 'prop-types';
+import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 
 const Wrapper = styled.div`
   /* layout */
@@ -22,6 +23,17 @@ const Wrapper = styled.div`
   ${media.mobile`
     width: calc(100% - 2rem);
   `}
+
+  /* animation */
+  .modal-enter {
+    animation: ${transitions.slideDown} .5s ease-in-out;
+    animation-fill-mode: forwards;
+  }
+
+  .modal-leave {
+    animation: ${transitions.slideUp} .5s ease-in-out;
+    animation-fill-mode: forwards;
+  }
 `;
 
 Wrapper.propTypes = {
@@ -62,9 +74,9 @@ class Modal extends Component {
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.visible !== this.props.visible) {
       if (this.props.visible) {
-        document.body.addEventListener('keyup', this.handlekeyPress);
+        document.body.addEventListener('keyup', this.handleKeyPress);
       } else {
-        document.body.removeEventListener('keyup', this.handlekeyPress);
+        document.body.removeEventListener('keyup', this.handleKeyPress);
       }
     }
   }
@@ -75,9 +87,14 @@ class Modal extends Component {
     return (
       <div>
         <Wrapper width={width}>
-          {
-            visible && (<ModalBox>{children}</ModalBox>)
-          }
+          <CSSTransitionGroup
+            transitionName="modal"
+            transitionEnterTimeout={500}
+            transitionLeaveTimeout={500}>
+            {
+              visible && (<ModalBox>{children}</ModalBox>)
+            }
+          </CSSTransitionGroup>
         </Wrapper>
       </div>
     );
