@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import oc from 'open-color';
 import {media} from '../lib/style-utils';
 import PropTypes from 'prop-types';
 
@@ -11,7 +10,7 @@ const Wrapper = styled.div`
 
   /* mobile size */
   ${media.mobile`
-    widht: 100%;
+    width: 100%;    
   `}
 `;
 
@@ -23,7 +22,7 @@ const Container = ({ visible, children }) => visible ? (
 ) : null;
 
 //  PropType setting
-Container.PropTypes = {
+Container.propTypes = {
   visible: PropTypes.bool
 };
 
