@@ -5,6 +5,7 @@
   "dependencies": {
     "eslint": "^5.2.0",
     "immutable": "^3.8.2",
+    "lodash": "^4.17.13",
     "open-color": "^1.6.3",
     "prop-types": "^15.6.2",
     "react": "^16.4.1",
